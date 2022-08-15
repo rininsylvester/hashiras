@@ -677,7 +677,7 @@
   opacity: .2;
 }
 
-.live__card:nth-child(2), .live__card:nth-child(3) {
+.live__card:nth-child(2) {
   background-image: linear-gradient(#0000 0%, #111111e6 100%);
   background-repeat: no-repeat;
 }
