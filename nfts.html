@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Hashiras</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="navbar__container">
+       <a href="/" id="navbar__logo"><i class="fas fa-gem"></i>The Hashiras</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="index.html" class="navbar__links">Home</a>
+          </li>
+          <li class="navbar__item">
+            <a href="gamesdojo.html" class="navbar__links">Games Dojo</a>
+          </li>
+          <li class="navbar__item">
+            <a href="clipoweek.html" class="navbar__links">Clip'o'Week</a>
+          </li>
+          <li class="navbar__item">
+            <a href="shenanigans.html" class="navbar__links">Shenanigans</a>
+          </li>
+          <li class="navbar__item">
+            <a href="eventsch.html" class="navbar__links">Event Schedules</a>
+          </li>
+          <li class="navbar__item">
+            <a href="aboutus.html" class="navbar__links">About Us</a>
+          </li>
+          <li class="navbar__item">
+            <a href="nfts.html" class="navbar__links">NFTs</a>
+          </li>
+          <li class="navbar__btn"><a class="button" id="wallbutton">Connect Wallet</a></li>
+          <p id='userWallet'></p>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="main">
+      <div class="main__container">
+        <div class="main__content">
+          <h1>Hashiras NFTs</h1>
+          <p>We are launching a new range of NFTs across ETH blockchain</p>
+          <button class="main__btn"><a href="#">Coming Soon...</a></button>
+        </div>
+        <div class="main__img-container">
+          <img id="main__img" src="images/pic2.jpg" />
+        </div>
+      </div>
+    </div>
+       <!-- Footer Section -->
+    <div class="footer__container">
+      <div class="footer__links">
+        <div class="footer__link--wrapper">
+          <div class="footer__link--items">
+            <h2>About Us</h2>
+            <a href="tos.docx">Terms of Service</a>
+          </div>
+          <div class="footer__link--items">
+            <h2>Contact Us</h2>
+            <a href="contact.html">Contact</a>
+             <a href="contact.html">Sponsorships</a>
+          </div>
+        </div>
+        <div class="footer__link--wrapper">
+          <div class="footer__link--items">
+            <h2>Videos</h2>
+            <a href="contact.html">Submit Clip</a>
+          </div>
+          <div class="footer__link--items">
+            <h2>Social Media</h2>
+            <a href="https://instagram.com">Instagram</a> <a href="https://facebook.com">Facebook</a>
+            <a href="https://youtube.com">Youtube</a> <a href="https://twitter.com">Twitter</a>
+          </div>
+        </div>
+      </div>
+      <section class="social__media">
+        <div class="social__media--wrap">
+          <div class="footer__logo">
+            <a href="/" id="footer__logo"><i class="fas fa-gem"></i>The Hashiras</a>
+          </div>
+          <p class="website__rights">The Hashiras©  2022. All rights reserved</p>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      window.userWalletAddress = null
+      const loginButton = document.getElementById('wallbutton')
+      const userWallet = document.getElementById('userWallet')
+  
+      function toggleButton() {
+        if (!window.ethereum) {
+          loginButton.innerText = 'MetaMask is not installed'
+          return false
+        }
+  
+        loginButton.addEventListener('click', loginWithMetaMask)
+      }
+  
+      async function loginWithMetaMask() {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+          .catch((e) => {
+            console.error(e.message)
+            return
+          })
+        if (!accounts) { return }
+  
+        window.userWalletAddress = accounts[0]
+        loginButton.innerText = 'Logout'
+  
+        loginButton.removeEventListener('click', loginWithMetaMask)
+        setTimeout(() => {
+          loginButton.addEventListener('click', signOutOfMetaMask)
+        }, 200)
+      }
+  
+      function signOutOfMetaMask() {
+        window.userWalletAddress = null
+        userWallet.innerText = ''
+        loginButton.innerText = 'Connect Wallet'
+  
+        loginButton.removeEventListener('click', signOutOfMetaMask)
+        setTimeout(() => {
+          loginButton.addEventListener('click', loginWithMetaMask)
+        }, 200)
+      }
+  
+      window.addEventListener('DOMContentLoaded', () => {
+        toggleButton()
+      });
+    </script>
+  </body>
+</html>
